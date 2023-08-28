@@ -4,6 +4,14 @@ import 'package:flutter/services.dart' show rootBundle;
 
 /* ========== HELPERS ========== */
 // vars
+double aspectWidth = 1;
+double aspectHeight = 1;
+
+void setAspect(double w, double h) {
+	aspectWidth = w;
+	aspectHeight = h;
+}
+
 const Text spacer = Text("");
 double paddingW = 0.1; // the percent of horiontal padding on each side
 double paddingH = 0.05; // the amount of verticle padding on each side

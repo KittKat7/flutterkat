@@ -9,6 +9,14 @@ Brightness mode = Brightness.light;
 
 MaterialColor themeColor = Colors.red;
 
+ThemeData getLightTheme(context) {
+  return Provider.of<ColorTheme>(context).lightTheme;
+}
+
+ThemeData getDarkTheme(context) {
+  return Provider.of<ColorTheme>(context).darkTheme;
+}
+
 class ColorTheme with ChangeNotifier{
 
 	ThemeData lightTheme = ThemeData(

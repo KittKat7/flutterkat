@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // custom
-import 'flutterkat_settings.dart';
-import 'flutterkat_theme.dart';
-import 'flutterkat_lang.dart';
+import 'package:flutterkat/settings.dart';
+import 'package:flutterkat/theme.dart';
+import 'package:flutterkat/lang.dart';
 
-Future<void> flutterkatInit(List<String> modules) async {
+var _pageRoutes;
+
+Future<void> flutterkatInit() async {
 	await flutterkatInitSettings();
 }
 
-void flktRunApp(Widget child) {
+void flktRunApp(Widget child) async {
+	await flutterkatInit();
 	runApp(ChangeNotifierProvider<ColorTheme>(
 			create: (context) => ColorTheme(),
 			child: child,
@@ -26,7 +29,12 @@ Map<String, Widget Function(BuildContext)> genRoutes(Map<String, List> pageRoute
 	for (String name in pageRoutes.keys) {
 		routes[pageRoutes[name]![0]] = (context) => pageRoutes[name]![1];
 	}
+	_pageRoutes = pageRoutes;
 	return routes;
+}
+
+String getRoute(String key) {
+	return _pageRoutes[key][0];
 }
 
 void flktSave(String key, String value) {

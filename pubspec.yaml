@@ -10,6 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  provider:
+  flutter_markdown:
+  shared_preferences:
+  shared_preferences_web:
 
 dev_dependencies:
   flutter_test:

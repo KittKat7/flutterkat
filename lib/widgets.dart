@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // custom
-import 'flutterkat_graphics.dart';
+import 'graphics.dart';
 
 class GoBackButton extends StatelessWidget
 {
@@ -50,6 +50,51 @@ class PaddedScroll extends StatelessWidget
 		);
 	} // end buidl
 } // end PaddedScroll
+
+class Aspect extends StatelessWidget {
+
+	final double width;
+	final double height;
+	final Widget child;
+
+	Aspect({double? width, double? height, required this.child})
+		: width = width ?? aspectWidth, height = height ?? aspectHeight;
+
+	@override
+	Widget build(BuildContext context)
+	{
+		final Size screenSize = getScreenSize(context);
+		final double screenWidth = screenSize.width;
+		final double screenHeight = screenSize.height;
+
+		final double screenWidthAspect = screenWidth / width;
+		final double screenHeightAspect = screenHeight / height;
+
+		EdgeInsets edgeInsets;
+		// If the width is longer than aspect.
+		if (screenWidthAspect > screenHeightAspect) {
+			edgeInsets = EdgeInsets.symmetric(
+				horizontal: (screenWidth - screenHeightAspect * width) / 2,
+				vertical: 0,
+			);
+		}
+		else {
+			edgeInsets = const EdgeInsets.symmetric(
+				horizontal: 0,
+				vertical: 0,
+			);
+		}
+
+		var padding = Padding(
+			padding: edgeInsets,
+			child: child,
+		);
+		return Align(
+			alignment: Alignment.center,
+			child: padding
+		);
+	} // end buidl
+}
 
 
 class StyledOutlinedButton extends StatelessWidget {

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 
-import 'flutterkat_lang.dart';
-import 'flutterkat_theme.dart';
+import 'lang.dart';
+import 'theme.dart';
 
 const String title = "Flashclaws";
 
