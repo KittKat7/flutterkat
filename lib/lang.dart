@@ -12,6 +12,7 @@ String getLanguageString(String key, [List params = const []]) {
 	// for (String key in params.keys) {
 	// 	str.replaceAll('\${key}', params[key]);
 	// }
+  str = str.replaceAll(RegExp('\\\$\\{\\d+\\}'), '');
 	return str;
 }
 

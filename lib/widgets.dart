@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 // custom
 import 'graphics.dart';
 
@@ -131,4 +132,12 @@ class StyledOutlinedButton extends StatelessWidget {
 
 		return button;
 	}
+}
+
+class MarkD extends MarkdownBody {
+	const MarkD(data) : super(data: data);
+}
+
+class TextBold extends Text {
+	const TextBold(super.data) : super(style: const TextStyle(fontWeight: FontWeight.bold));
 }
