@@ -11,6 +11,7 @@ bool flutterkatInitialized = false;
 Future<void> flutterkatInit() async {
 	await flutterkatInitSettings();
   flutterkatInitialized = true;
+  print("Thank you for using Flutterkat");
 }
 
 void flktRunApp(Widget child) async {

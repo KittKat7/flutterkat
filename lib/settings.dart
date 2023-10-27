@@ -13,7 +13,7 @@ bool get hasError {
 	return flutterkatError.isNotEmpty;
 }
 
-late final SharedPreferences prefs;
+late SharedPreferences prefs;
 // settings
 Map<String, String> flutterkatInfo = {};
 late Map<String, String> flutterkatSettings;
@@ -25,7 +25,13 @@ Future<void> flutterkatInitSettings() async {
 	flutterkatInfo['platformType'] = getPlatformType();
 	flutterkatInfo['version'] = flutterkatVersion;
 
-	loadSettings();
+	try {
+		prefs = await SharedPreferences.getInstance();
+		flutterkatSettings = Map<String, String>.from(jsonDecode(prefs.getString('flutterkat')!));
+	} catch (e) {
+		loadDefaults();
+    print("ERROR > occured while initialize shared preferences $e");
+	}
 }
 
 // Save the value to shared preferences
@@ -35,12 +41,7 @@ Future<void> saveSettings() async {
 
 // Load the value from shared preferences
 Future<void> loadSettings() async {
-	try {
-		prefs = await SharedPreferences.getInstance();
-		flutterkatSettings = jsonDecode(prefs.getString('flutterkat')!);
-	} catch (e) {
-		loadDefaults();
-	}
+	
 } // end loadOptions
 
 void loadDefaults() {
