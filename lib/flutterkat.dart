@@ -6,13 +6,19 @@ import 'package:flutterkat/theme.dart';
 import 'package:flutterkat/lang.dart';
 
 var _pageRoutes;
+bool flutterkatInitialized = false;
 
 Future<void> flutterkatInit() async {
 	await flutterkatInitSettings();
+  flutterkatInitialized = true;
 }
 
 void flktRunApp(Widget child) async {
-	await flutterkatInit();
+  if (!flutterkatInitialized) {
+    await flutterkatInit();
+    print("Flutterkat should be initialized BEFORE running the app");
+  }
+	
 	runApp(ChangeNotifierProvider<ColorTheme>(
 			create: (context) => ColorTheme(),
 			child: child,

@@ -20,7 +20,6 @@ late Map<String, String> flutterkatSettings;
 final isWebMobile = kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android);
 
 Future<void> flutterkatInitSettings() async {
-	prefs = await SharedPreferences.getInstance();
 	flutterkatInfo = {};
 	flutterkatInfo['platform'] = getPlatform();
 	flutterkatInfo['platformType'] = getPlatformType();
@@ -37,7 +36,7 @@ Future<void> saveSettings() async {
 // Load the value from shared preferences
 Future<void> loadSettings() async {
 	try {
-		final prefs = await SharedPreferences.getInstance();
+		prefs = await SharedPreferences.getInstance();
 		flutterkatSettings = jsonDecode(prefs.getString('flutterkat')!);
 	} catch (e) {
 		loadDefaults();
