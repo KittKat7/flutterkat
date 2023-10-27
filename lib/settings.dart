@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'lang.dart';
 import 'theme.dart';
 
-const String title = "Flashclaws";
-
 const String flutterkatVersion = "0.0.1";
 
 String flutterkatError = "";
