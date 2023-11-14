@@ -90,10 +90,7 @@ class Aspect extends StatelessWidget {
 			padding: edgeInsets,
 			child: child,
 		);
-		return Align(
-			alignment: Alignment.center,
-			child: padding
-		);
+		return padding;
 	} // end buidl
 }
 
