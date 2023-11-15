@@ -76,3 +76,7 @@ class ColorTheme with ChangeNotifier{
 ColorTheme getColorTheme(BuildContext context) {
 	return Provider.of<ColorTheme>(context, listen: false);
 }
+
+ColorScheme colorScheme(BuildContext context) {
+  return Theme.of(context).colorScheme;
+}
