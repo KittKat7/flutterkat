@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutterkat/settings.dart';
 import 'package:provider/provider.dart';
 
 // MaterialColor defColor = Colors.amber;
 MaterialColor defColor = Colors.blue;
-List<MaterialColor> themeColorList = 
- [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple, Colors.cyan];
 
-MaterialColor themeColor = Colors.red;
+Map<String, MaterialColor> themeColorMap = {
+  'red': Colors.red,
+  'orange': Colors.orange,
+  'yellow': Colors.yellow,
+  'green': Colors.green,
+  'blue': Colors.blue,
+  'purple': Colors.purple,
+  'cyan': Colors.cyan
+};
+
+late MaterialColor themeColor;
+
+Future<void> initTheme() async {
+  themeColor = themeColorMap[getSetting('themeColor')]!;
+}
 
 ThemeData getLightTheme(context) {
   return Provider.of<ColorTheme>(context).lightTheme;
@@ -29,24 +42,32 @@ AppThemeMode getAppThemeMode(context) {
 }
 
 class AppThemeMode with ChangeNotifier {
-  ThemeMode mode = ThemeMode.system;
+  ThemeMode mode = getSetting('themeMode') == 'light' ? ThemeMode.light : getSetting('themeMode') == 'dark' ? ThemeMode.dark : ThemeMode.system;
   
-  setLightMode() { mode = ThemeMode.light; return notifyListeners(); }
-  setDarkMode() { mode = ThemeMode.dark; return notifyListeners(); }
-  setAutoMode() { mode = ThemeMode.system; return notifyListeners(); }
+  setLightMode() { mode = ThemeMode.light; flutterkatSettings['themeMode'] = 'light'; saveSettings(); return notifyListeners(); }
+  setDarkMode() { mode = ThemeMode.dark; flutterkatSettings['themeMode'] = 'dark'; saveSettings(); return notifyListeners(); }
+  setAutoMode() { mode = ThemeMode.system; flutterkatSettings['themeMode'] = 'auto'; saveSettings(); return notifyListeners(); }
 }
 
 class ColorTheme with ChangeNotifier{
 
 	ThemeData lightTheme = ThemeData(
-		primarySwatch: themeColor,
-		brightness: Brightness.light,
-	);
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: themeColor,
+      brightness: Brightness.light
+    ),
+    primarySwatch: themeColor,
+    brightness: Brightness.light,
+  );
 
 	ThemeData darkTheme = ThemeData(
-		primarySwatch: themeColor,
-		brightness: Brightness.dark,
-	);
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: themeColor,
+      brightness: Brightness.dark
+    ),
+    primarySwatch: themeColor,
+    brightness: Brightness.dark,
+  );
 
   ThemeData theme = ThemeData(
 
@@ -55,15 +76,20 @@ class ColorTheme with ChangeNotifier{
 	setColor(MaterialColor? clr)
 	{
 		themeColor = clr??=themeColor;
-		// currentTheme = ThemeData(
-		// 	primarySwatch: themeColor,
-		// 	brightness: mode,
-		// );
+
 		lightTheme = ThemeData(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: themeColor,
+        brightness: Brightness.light
+      ),
 			primarySwatch: themeColor,
 			brightness: Brightness.light,
 		);
 		darkTheme = ThemeData(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: themeColor,
+        brightness: Brightness.dark
+      ),
 			primarySwatch: themeColor,
 			brightness: Brightness.dark,
 		);
@@ -74,10 +100,18 @@ class ColorTheme with ChangeNotifier{
 	{
 		themeColor = Colors.cyan;
 		lightTheme = ThemeData(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: themeColor,
+        brightness: Brightness.light
+      ),
 			primarySwatch: themeColor,
 			brightness: Brightness.light,
 		);
 		darkTheme = ThemeData(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: themeColor,
+        brightness: Brightness.dark
+      ),
 			primarySwatch: themeColor,
 			brightness: Brightness.dark,
 		);
@@ -86,15 +120,16 @@ class ColorTheme with ChangeNotifier{
 
 	cycleColor()
 	{
-		if (!themeColorList.contains(themeColor)) {
-			setColor(themeColorList[0]);
+		if (!themeColorMap.values.toList().contains(themeColor)) {
+			setColor(themeColorMap.values.toList()[0]);
 		} else {
-			int index = themeColorList.indexOf(themeColor) + 1;
-			setColor(themeColorList[index >= (themeColorList.length - 1) ? 0 : index]);
+			int index = themeColorMap.values.toList().indexOf(themeColor) + 1;
+			setColor(themeColorMap.values.toList()[index >= (themeColorMap.values.toList().length - 1) ? 0 : index]);
 		}
 	} // end cycleColor
-	
 }
+
+
 
 ColorTheme getColorTheme(BuildContext context) {
 	return Provider.of<ColorTheme>(context, listen: false);

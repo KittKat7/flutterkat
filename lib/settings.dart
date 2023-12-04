@@ -19,6 +19,11 @@ Map<String, String> flutterkatInfo = {};
 late Map<String, String> flutterkatSettings;
 final isWebMobile = kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android);
 
+Map<String, String> flutterkatSettingsDefault = {
+  'themeColor': themeColorMap.keys.first,
+  'themeMode': 'auto'
+};
+
 Future<void> flutterkatInitSettings() async {
 	flutterkatInfo = {};
 	flutterkatInfo['platform'] = getPlatform();
@@ -41,14 +46,23 @@ Future<void> saveSettings() async {
 
 // Load the value from shared preferences
 Future<void> loadSettings() async {
-	
+	flutterkatSettings = jsonDecode(prefs.getString('flutterkat')!);
 } // end loadOptions
 
 void loadDefaults() {
-	flutterkatSettings = {
-	};
+	flutterkatSettings = flutterkatSettingsDefault;
 	saveSettings();
 } // end loadDefaults
+
+String getSetting(String key) {
+  String ret = "";
+  if (flutterkatSettings.containsKey(key)) {
+    ret = flutterkatSettings[key]!;
+  } else {
+    ret = flutterkatSettingsDefault[key]!;
+  }
+  return ret;
+}
 
 void flktSavePreference(String key, String value) {
 	prefs.setString(key, value);

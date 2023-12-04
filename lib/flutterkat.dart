@@ -10,6 +10,7 @@ bool flutterkatInitialized = false;
 
 Future<void> flutterkatInit() async {
 	await flutterkatInitSettings();
+  await initTheme();
   flutterkatInitialized = true;
   print("Thank you for using Flutterkat");
 }
