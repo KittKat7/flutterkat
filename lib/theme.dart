@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 MaterialColor defColor = Colors.blue;
 List<MaterialColor> themeColorList = 
  [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple, Colors.cyan];
-Brightness mode = Brightness.light;
 
 MaterialColor themeColor = Colors.red;
 
@@ -15,6 +14,26 @@ ThemeData getLightTheme(context) {
 
 ThemeData getDarkTheme(context) {
   return Provider.of<ColorTheme>(context).darkTheme;
+}
+
+ThemeData getTheme(context) {
+  return Provider.of<ColorTheme>(context).theme;
+}
+
+ThemeMode getThemeMode(context) {
+  return Provider.of<AppThemeMode>(context).mode;
+}
+
+AppThemeMode getAppThemeMode(context) {
+  return Provider.of<AppThemeMode>(context, listen: false);
+}
+
+class AppThemeMode with ChangeNotifier {
+  ThemeMode mode = ThemeMode.system;
+  
+  setLightMode() { mode = ThemeMode.light; return notifyListeners(); }
+  setDarkMode() { mode = ThemeMode.dark; return notifyListeners(); }
+  setAutoMode() { mode = ThemeMode.system; return notifyListeners(); }
 }
 
 class ColorTheme with ChangeNotifier{
@@ -28,6 +47,10 @@ class ColorTheme with ChangeNotifier{
 		primarySwatch: themeColor,
 		brightness: Brightness.dark,
 	);
+
+  ThemeData theme = ThemeData(
+
+  );
 
 	setColor(MaterialColor? clr)
 	{

@@ -22,7 +22,10 @@ void flktRunApp(Widget child) async {
 	
 	runApp(ChangeNotifierProvider<ColorTheme>(
 			create: (context) => ColorTheme(),
-			child: child,
+			child: ChangeNotifierProvider<AppThemeMode>(
+        create: (context) => AppThemeMode(),
+        child: child,
+      ),
 		)
 	);
 }
