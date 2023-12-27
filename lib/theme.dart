@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 MaterialColor defColor = Colors.blue;
 
 Map<String, MaterialColor> themeColorMap = {
-  'red': Colors.red,
+  'red': Colors.red, 
   'orange': Colors.orange,
   'yellow': Colors.yellow,
   'green': Colors.green,
@@ -18,7 +18,11 @@ Map<String, MaterialColor> themeColorMap = {
 late MaterialColor themeColor;
 
 Future<void> initTheme() async {
+  if (!themeColorMap.containsKey(getSetting('themeColor'))) {
+  flutterkatSettings['themeColor'] = 'red';
+  }
   themeColor = themeColorMap[getSetting('themeColor')]!;
+  // themeColor = themeColorMap['red']!;
 }
 
 ThemeData getLightTheme(context) {
@@ -73,9 +77,11 @@ class ColorTheme with ChangeNotifier{
 
   );
 
-	setColor(MaterialColor? clr)
+	setColor(String colorName)
 	{
-		themeColor = clr??=themeColor;
+		themeColor = themeColorMap[colorName] ?? themeColor;
+    flutterkatSettings['themeColor'] = colorName;
+    saveSettings();
 
 		lightTheme = ThemeData(
       colorScheme: ColorScheme.fromSwatch(
@@ -121,10 +127,10 @@ class ColorTheme with ChangeNotifier{
 	cycleColor()
 	{
 		if (!themeColorMap.values.toList().contains(themeColor)) {
-			setColor(themeColorMap.values.toList()[0]);
+			setColor(themeColorMap.keys.toList()[0]);
 		} else {
 			int index = themeColorMap.values.toList().indexOf(themeColor) + 1;
-			setColor(themeColorMap.values.toList()[index >= (themeColorMap.values.toList().length - 1) ? 0 : index]);
+			setColor(themeColorMap.keys.toList()[index >= (themeColorMap.keys.toList().length - 1) ? 0 : index]);
 		}
 	} // end cycleColor
 }
