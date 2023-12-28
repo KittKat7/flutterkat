@@ -15,6 +15,17 @@ Map<String, MaterialColor> themeColorMap = {
   'cyan': Colors.cyan
 };
 
+List<String> get getAvailableThemeColors {
+  return themeColorMap.keys.toList();
+}
+
+MaterialColor getThemeColor(String c) {
+  if (themeColorMap.containsKey(c)) {
+    return themeColorMap.values.first;
+  }
+  return themeColorMap[c]!;
+}
+
 late MaterialColor themeColor;
 
 Future<void> initTheme() async {
