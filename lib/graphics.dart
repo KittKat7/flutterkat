@@ -149,8 +149,8 @@ void confirmPopup(BuildContext context, String title, String question, Function(
 						child: const Text('Confirm'),
 						onPressed: () {
 							// Handle confirm
-							onConfirm();
 							Navigator.of(context).pop();
+              onConfirm();
 						},
 					),
 				],

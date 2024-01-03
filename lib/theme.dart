@@ -45,7 +45,14 @@ ThemeData getDarkTheme(context) {
 }
 
 ThemeData getTheme(context) {
-  return Provider.of<ColorTheme>(context).theme;
+  if (Theme.of(context).brightness == Brightness.light) {
+    return Provider.of<ColorTheme>(context).lightTheme;
+  }
+  else if (Theme.of(context).brightness == Brightness.dark) {
+    return Provider.of<ColorTheme>(context).darkTheme;
+  } else {
+    return Provider.of<ColorTheme>(context).theme;
+  }
 }
 
 ThemeMode getThemeMode(context) {

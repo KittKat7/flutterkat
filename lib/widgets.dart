@@ -138,3 +138,7 @@ class MarkD extends MarkdownBody {
 class TextBold extends Text {
 	const TextBold(super.data) : super(style: const TextStyle(fontWeight: FontWeight.bold));
 }
+
+class TextItalic extends Text {
+	const TextItalic(super.data) : super(style: const TextStyle(fontStyle: FontStyle.italic));
+}
