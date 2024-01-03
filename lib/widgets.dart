@@ -131,9 +131,25 @@ class StyledOutlinedButton extends StatelessWidget {
 	}
 }
 
-class MarkD extends MarkdownBody {
-	const MarkD(data) : super(data: data);
-}
+// Widget markd(String data) {
+//   return MarkdownBody(data: data);
+// }
+class Markd extends StatelessWidget {
+  final String data;
+  final double scale;
+  
+  const Markd(this.data, {super.key, this.scale = 1});
+
+  @override
+  Widget build(BuildContext context) {
+    return MarkdownBody(
+      data: data,
+      styleSheet: MarkdownStyleSheet(
+        textScaleFactor: scale,
+      ),
+    );
+  }//e build()
+}//e Markd
 
 class TextBold extends Text {
 	const TextBold(super.data) : super(style: const TextStyle(fontWeight: FontWeight.bold));
