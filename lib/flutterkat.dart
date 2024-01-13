@@ -55,3 +55,7 @@ void flktSave(String key, String value) {
 String? flktLoad(String key) {
 	return flktGetPreference(key);
 }
+
+Future<bool> flktRemove(String key) {
+  return flktRemovePreference(key);
+}

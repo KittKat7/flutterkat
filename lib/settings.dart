@@ -67,6 +67,10 @@ void flktSavePreference(String key, String value) {
 	prefs.setString(key, value);
 }
 
+Future<bool> flktRemovePreference(String key) {
+	return prefs.remove(key);
+}
+
 String? flktGetPreference(String key) {
 	return prefs.getString(key);
 }
