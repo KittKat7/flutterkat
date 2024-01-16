@@ -25,16 +25,18 @@ Map<String, String> flutterkatSettingsDefault = {
 
 Future<void> flutterkatInitSettings() async {
 	flutterkatInfo = {};
-	flutterkatInfo['platform'] = getPlatform();
-	flutterkatInfo['platformType'] = getPlatformType();
+	// flutterkatInfo['platform'] = getPlatform();
+	// flutterkatInfo['platformType'] = getPlatformType();
 	flutterkatInfo['version'] = flutterkatVersion;
+    print("DEBUG ERR1");
 
 	try {
 		prefs = await SharedPreferences.getInstance();
+    print("DEBUG ERR2");
 		flutterkatSettings = Map<String, String>.from(jsonDecode(prefs.getString('flutterkat')!));
-	} catch (e) {
+	} catch (e, trace) {
 		loadDefaults();
-    print("ERROR > occured while initialize shared preferences $e");
+    print("ERROR > occured while initialize shared preferences $e $trace");
 	}
 }
 
@@ -87,42 +89,42 @@ Future<void> resetOptions() async {
 
 
 
-String getPlatform() {
-	String platform;
-	switch(defaultTargetPlatform) {
-		case TargetPlatform.linux:
-			platform = "linux";
-			break;
-		case TargetPlatform.windows:
-			platform = "windows";
-			break;
-		case TargetPlatform.macOS:
-			platform = "macos";
-			break;
-		case TargetPlatform.android:
-			platform = "android";
-			break;
-		case TargetPlatform.iOS:
-			platform = "ios";
-			break;
-		default:
-			platform = "unknown";
-	} // end switch
-	return platform;
-} // end getPlatform
+// String getPlatform() {
+// 	String platform;
+// 	switch(defaultTargetPlatform) {
+// 		case TargetPlatform.linux:
+// 			platform = "linux";
+// 			break;
+// 		case TargetPlatform.windows:
+// 			platform = "windows";
+// 			break;
+// 		case TargetPlatform.macOS:
+// 			platform = "macos";
+// 			break;
+// 		case TargetPlatform.android:
+// 			platform = "android";
+// 			break;
+// 		case TargetPlatform.iOS:
+// 			platform = "ios";
+// 			break;
+// 		default:
+// 			platform = "unknown";
+// 	} // end switch
+// 	return platform;
+// } // end getPlatform
 
-String getPlatformType() {
-	String platformType;
-	switch(defaultTargetPlatform) {
-		case TargetPlatform.linux || TargetPlatform.windows || TargetPlatform.macOS:
-			platformType = "desktop";
-			break;
-		case TargetPlatform.android || TargetPlatform.iOS:
-			platformType = "mobile";
-			break;
-		default:
-			platformType = "unknown";
-	} // end switch
-	return platformType;
-} // end getPlatform
+// String getPlatformType() {
+// 	String platformType;
+// 	switch(defaultTargetPlatform) {
+// 		case TargetPlatform.linux || TargetPlatform.windows || TargetPlatform.macOS:
+// 			platformType = "desktop";
+// 			break;
+// 		case TargetPlatform.android || TargetPlatform.iOS:
+// 			platformType = "mobile";
+// 			break;
+// 		default:
+// 			platformType = "unknown";
+// 	} // end switch
+// 	return platformType;
+// } // end getPlatform
 

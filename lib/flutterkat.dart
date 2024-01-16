@@ -9,6 +9,7 @@ var _pageRoutes;
 bool flutterkatInitialized = false;
 
 Future<void> flutterkatInit() async {
+  WidgetsFlutterBinding.ensureInitialized();
 	await flutterkatInitSettings();
   await initTheme();
   flutterkatInitialized = true;
